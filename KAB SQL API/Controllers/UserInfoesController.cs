@@ -11,48 +11,48 @@ namespace KAB_SQL_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SourceSystemsController : ControllerBase
+    public class UserInfoesController : ControllerBase
     {
         private readonly APIContext _context;
 
-        public SourceSystemsController(APIContext context)
+        public UserInfoesController(APIContext context)
         {
             _context = context;
         }
 
-        // GET: api/SourceSystems
+        // GET: api/UserInfoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SourceSystem>>> GetSourceSystem()
+        public async Task<ActionResult<IEnumerable<UserInfo>>> GetUserInfo()
         {
-            return await _context.SourceSystem.ToListAsync();
+            return await _context.UserInfo.ToListAsync();
         }
 
-        // GET: api/SourceSystems/5
+        // GET: api/UserInfoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SourceSystem>> GetSourceSystem(int id)
+        public async Task<ActionResult<UserInfo>> GetUserInfo(int id)
         {
-            var sourceSystem = await _context.SourceSystem.FindAsync(id);
+            var userInfo = await _context.UserInfo.FindAsync(id);
 
-            if (sourceSystem == null)
+            if (userInfo == null)
             {
                 return NotFound();
             }
 
-            return sourceSystem;
+            return userInfo;
         }
 
-        // PUT: api/SourceSystems/5
+        // PUT: api/UserInfoes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSourceSystem(int id, SourceSystem sourceSystem)
+        public async Task<IActionResult> PutUserInfo(int id, UserInfo userInfo)
         {
-            if (id != sourceSystem.SourceSystemId)
+            if (id != userInfo.UserId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(sourceSystem).State = EntityState.Modified;
+            _context.Entry(userInfo).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace KAB_SQL_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SourceSystemExists(id))
+                if (!UserInfoExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace KAB_SQL_API.Controllers
             return NoContent();
         }
 
-        // POST: api/SourceSystems
+        // POST: api/UserInfoes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<SourceSystem>> PostSourceSystem(SourceSystem sourceSystem)
+        public async Task<ActionResult<UserInfo>> PostUserInfo(UserInfo userInfo)
         {
-            _context.SourceSystem.Add(sourceSystem);
+            _context.UserInfo.Add(userInfo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSourceSystem", new { id = sourceSystem.SourceSystemId }, sourceSystem);
+            return CreatedAtAction("GetUserInfo", new { id = userInfo.UserId }, userInfo);
         }
 
-        // DELETE: api/SourceSystems/5
+        // DELETE: api/UserInfoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SourceSystem>> DeleteSourceSystem(int id)
+        public async Task<ActionResult<UserInfo>> DeleteUserInfo(int id)
         {
-            var sourceSystem = await _context.SourceSystem.FindAsync(id);
-            if (sourceSystem == null)
+            var userInfo = await _context.UserInfo.FindAsync(id);
+            if (userInfo == null)
             {
                 return NotFound();
             }
 
-            _context.SourceSystem.Remove(sourceSystem);
+            _context.UserInfo.Remove(userInfo);
             await _context.SaveChangesAsync();
 
-            return sourceSystem;
+            return userInfo;
         }
 
-        private bool SourceSystemExists(int id)
+        private bool UserInfoExists(int id)
         {
-            return _context.SourceSystem.Any(e => e.SourceSystemId == id);
+            return _context.UserInfo.Any(e => e.UserId == id);
         }
     }
 }

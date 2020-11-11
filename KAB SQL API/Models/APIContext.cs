@@ -6,56 +6,39 @@ namespace KAB_SQL_API.Models
 {
     public partial class APIContext : DbContext
     {
+
         public APIContext(DbContextOptions<APIContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<SourceSystem> SourceSystem { get; set; }
+        public virtual DbSet<UserInfo> UserInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SourceSystem>(entity =>
+            modelBuilder.Entity<UserInfo>(entity =>
             {
-                entity.ToTable("sourceSystem");
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__UserInfo__1788CC4C948B516D");
 
-                entity.Property(e => e.Countryid)
-                    .HasColumnName("COUNTRYID")
-                    .HasMaxLength(6)
-                    .IsUnicode(false);
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.EndDate)
-                    .HasColumnName("endDate")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.Erplegalentity)
-                    .HasColumnName("ERPLEGALENTITY")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LocalErp)
-                    .HasColumnName("LOCAL ERP")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SourceDescription)
-                    .HasColumnName("sourceDescription")
-                    .HasMaxLength(4000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SourceSystem1)
+                entity.Property(e => e.Department)
                     .IsRequired()
-                    .HasColumnName("sourceSystem")
-                    .HasMaxLength(255)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.SourceSystemId)
-                    .HasColumnName("sourceSystemID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.StartDate)
-                    .HasColumnName("startDate")
-                    .HasColumnType("date");
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
